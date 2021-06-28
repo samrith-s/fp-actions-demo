@@ -1,0 +1,30 @@
+{
+  "name": "fp-actions",
+  "version": "0.0.0",
+  "description": "Action-Land encore",
+  "private": false,
+  "license": "MIT",
+  "author": {
+    "name": "Samrith Shankar",
+    "email": "samrith.shankar@outlook.com"
+  },
+  "scripts": {
+    "postinstall": "husky install",
+    "dev": "cross-env NODE_ENV=\"development\" tsup",
+    "build": "cross-env NODE_ENV=\"production\" tsup"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^6.0.0",
+    "prettier": "^2.3.2",
+    "tsup": "^4.12.0",
+    "typescript": "^4.3.4"
+  }
+}
