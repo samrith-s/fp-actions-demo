@@ -14,6 +14,8 @@ module.exports = {
     'no-undef': 'off',
     'no-case-declarations': 'off',
     'lines-between-class-members': 'always',
+    'space-before-function-paren': 'never',
+    'space-before-blocks': 'always',
     'padding-line-between-statements': [
       'warn',
       { blankLine: 'always', prev: '*', next: 'block' },
