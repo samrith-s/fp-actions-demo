@@ -1,7 +1,7 @@
 {
-  "name": "fp-actions",
+  "name": "stato",
   "version": "0.0.0",
-  "description": "Action-Land encore",
+  "description": "Stato",
   "private": false,
   "license": "MIT",
   "author": {
@@ -10,12 +10,14 @@
   },
   "scripts": {
     "postinstall": "husky install",
-    "dev": "cross-env NODE_ENV=\"development\" tsup",
-    "build": "cross-env NODE_ENV=\"production\" tsup"
+    "dev": "scripts/dev.sh",
+    "build": "scripts/build.sh",
+    "start": "scripts/start.sh"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
+    "@types/node": "^15.12.5",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
     "cross-env": "^7.0.3",
