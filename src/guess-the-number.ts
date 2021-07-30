@@ -7,52 +7,68 @@ const rl = readline.createInterface({
 });
 
 {
+  /**
+   * Store creation
+   */
   const store = new Store({
     rand: 0,
   });
 
+  /**
+   * Actions
+   */
   const generateRandom = store.action('randomize');
-  const setUserGuess = store.action<string>('setUserGuess');
   const check = store.action<number>('check');
   const loop = store.action('loop');
-  const exit = store.action('exit');
 
-  store.case(loop, ({ setState }) => {
-    setState({ rand: 0 });
-    generateRandom();
+  /**
+   * Effects
+   */
+  const print = store.effect<string>('print', ({ payload }) => {
+    console.log(payload);
   });
-
-  store.case(generateRandom, ({ setState }) => {
-    setState({ rand: Math.round(Math.random() * (6 - 1) + 1) });
-    setUserGuess('What is the number?');
-  });
-
-  store.case(setUserGuess, ({ payload }) => {
+  const askInput = store.effect<string>('ask-input', ({ payload, dispatch }) => {
     rl.question(payload, (input) => {
-      check(parseInt(input, 10));
+      dispatch(check(parseInt(input, 10)));
     });
   });
-
-  store.case(check, ({ state, payload }) => {
-    if (state.rand === payload) {
-      console.log('Your answer was correct!');
-    } else {
-      console.log(`Your answer was incorrect. Guessed: ${payload}, number: ${state.rand}`);
-    }
-
-    rl.question('Do you want to continue? y/n', (input) => {
+  const askContinuation = store.effect('ask-continue', ({ dispatch }) => {
+    rl.question('Do you want to continue?', (input) => {
       if (input.toLowerCase() === 'y') {
-        loop();
+        dispatch(loop());
       } else {
-        exit();
+        rl.close();
+        console.log(store.getExecutions());
+        rl.on('close', () => {
+          process.exit(0);
+        });
       }
     });
   });
 
-  store.case(exit, () => {
-    rl.close();
-    rl.on('close', () => process.exit(0));
-  });
+  /**
+   * Cases
+   */
+  store
+    .case(loop, (builder) => {
+      builder.setState({ rand: 0 }).dispatch(generateRandom());
+    })
+    .case(generateRandom, (builder) => {
+      builder.setState({ rand: Math.round(Math.random() * (6 - 1) + 1) });
+      askInput('What is the number? ');
+    })
+    .case(check, ({ state, payload }) => {
+      if (state.rand === payload) {
+        print('Your answer was correct!');
+      } else {
+        print(`Your answer was incorrect. Guessed: ${payload}, number: ${state.rand}`);
+      }
 
-  loop();
+      askContinuation();
+    });
+
+  /**
+   * Start
+   */
+  store.dispatch(loop());
 }
