@@ -1,33 +1,25 @@
-# Actions PoC
+# Stat
 
-To run anything remember to **IGNORE** directory and file extension.
+Declarative state management
 
 ## Setup:
 
-```
+```bash
 yarn install
 ```
 
 ## Development:
 
-```
-yarn dev index
-yarn dev usage
-yarn dev guess-the-number
+```bash
+yarn workspace <package-name> run dev
 ```
 
 ## Build
 
-```
-yarn build index
-yarn build usage
-yarn build guess-the-number
-```
+```bash
+# Build all
+yarn workspaces run build
 
-## Execute
-
-```
-yarn start index
-yarn start usage
-yarn start guess-the-number
+# Build one
+yarn workspace <package-name> run build
 ```
