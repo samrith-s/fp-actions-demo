@@ -1,4 +1,4 @@
-import { Store } from '.';
+import { Store } from '../src';
 
 const s = new Store({
   count: 0,

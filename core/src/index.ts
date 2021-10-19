@@ -1,83 +1,14 @@
-interface DispatchAction<Type, Payload> {
-  type: Type;
-  payload: Payload;
-}
-
-interface ActionType<Type, Payload> {
-  (
-    payload?: Payload extends Function | never ? never : Payload // | PayloadFunction<State, Payload>
-  ): DispatchAction<Type, Payload>;
-  type: Type;
-}
-
-// @ts-ignore
-type GetActionPayload<Action> = ReturnType<Action>['payload'];
-interface Builder<State, Payload> {
-  state: State;
-  payload: Payload;
-  setState(
-    state: Partial<State> | (({ state: State, payload: Payload }) => Partial<State>)
-  ): Builder<State, Payload>;
-  dispatch(action: DispatchAction<any, any>): Builder<State, Payload>;
-}
-
-interface Effector<State, Payload> {
-  payload: Payload;
-  state: State;
-  dispatch(action: DispatchAction<any, any>): void;
-}
-
-type Case<State, Payload> = (builder: Builder<State, Payload>) => void;
-type Effect<State, Payload> = (props: Effector<State, Payload>) => void;
-
-enum ExecutionType {
-  ACTION = 'action',
-  EFFECT = 'effect',
-  STATE = 'state',
-  DISPATCH = 'dispatch',
-}
-
-interface ExecutedAction {
-  type: ExecutionType.ACTION;
-  name: string;
-  source: DispatchSource;
-  payload: any;
-}
-
-interface ExecutedEffect {
-  type: ExecutionType.EFFECT;
-  name: string;
-  payload: any;
-}
-
-interface ExecutedState<State> {
-  type: ExecutionType.STATE;
-  name: string;
-  previousState: State;
-  nextState: State;
-}
-
-interface ExecutedDispatch {
-  type: ExecutionType.DISPATCH;
-  name: string;
-  payload: any;
-  source: DispatchSource;
-}
-
-type Executed<State> = ExecutedAction | ExecutedEffect | ExecutedState<State> | ExecutedDispatch;
-
-interface ExecutedMeta<State> {
-  list: Executed<State>[];
-  state(executed: Omit<ExecutedState<State>, 'type'>): void;
-  action(executed: Omit<ExecutedAction, 'type'>): void;
-  effect(executed: Omit<ExecutedEffect, 'type'>): void;
-  dispatch(executed: Omit<ExecutedDispatch, 'type'>): void;
-}
-
-interface DispatchSource {
-  name: any;
-  type: ExecutionType;
-}
+import {
+  Case,
+  ExecutedMeta,
+  ExecutionType,
+  DispatchAction,
+  Builder,
+  DispatchSource,
+  GetActionPayload,
+  ActionType,
+  Effect,
+} from './interface';
 
 export class Store<State = any> {
   private readonly cases: Map<any, Case<State, any>> = new Map();

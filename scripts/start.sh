@@ -1,3 +1,4 @@
 #!/bin/bash
 
-yarn node dist/$1.js
+export FOLDER=${1:-'src/index'}
+yarn node $FOLDER/dist/index.js ${@:2}

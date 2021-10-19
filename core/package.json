@@ -1,0 +1,15 @@
+{
+  "name": "@stat/core",
+  "version": "0.0.0",
+  "description": "Declarative state management",
+  "private": false,
+  "license": "MIT",
+  "author": {
+    "name": "Samrith Shankar",
+    "email": "samrith.shankar@outlook.com"
+  },
+  "scripts": {
+    "build": "../scripts/build.sh",
+    "dev": "../scripts/dev.sh"
+  }
+}

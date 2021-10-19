@@ -1,5 +1,5 @@
 import * as readline from 'readline';
-import { Store } from '.';
+import { Store } from '../src';
 
 const rl = readline.createInterface({
   input: process.stdin,

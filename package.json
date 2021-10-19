@@ -1,32 +1,37 @@
 {
-  "name": "stato",
+  "name": "stat",
   "version": "0.0.0",
-  "description": "Stato",
-  "private": false,
+  "description": "Declarative state management",
+  "private": true,
   "license": "MIT",
   "author": {
     "name": "Samrith Shankar",
     "email": "samrith.shankar@outlook.com"
   },
+  "workspaces": [
+    "core",
+    "adapters/*"
+  ],
   "scripts": {
-    "postinstall": "husky install",
-    "dev": "scripts/dev.sh",
-    "build": "scripts/build.sh",
-    "start": "scripts/start.sh"
+    "build:all": "yarn workspaces run build",
+    "prepare": "yarn build:all",
+    "postinstall": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^12.1.4",
-    "@commitlint/config-conventional": "^12.1.4",
-    "@types/node": "^15.12.5",
-    "@typescript-eslint/eslint-plugin": "^4.28.0",
-    "@typescript-eslint/parser": "^4.28.0",
-    "cross-env": "^7.0.3",
-    "eslint": "^7.29.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "husky": "^6.0.0",
-    "prettier": "^2.3.2",
-    "tsup": "^4.12.0",
-    "typescript": "^4.3.4"
+    "@commitlint/cli": "13.2.1",
+    "@commitlint/config-conventional": "13.2.0",
+    "@types/node": "16.11.1",
+    "@typescript-eslint/eslint-plugin": "5.1.0",
+    "@typescript-eslint/parser": "5.1.0",
+    "cross-env": "7.0.3",
+    "eslint": "8.0.1",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "husky": "7.0.2",
+    "lerna": "4.0.0",
+    "prettier": "2.4.1",
+    "standard-version": "9.3.2",
+    "tsup": "5.4.2",
+    "typescript": "4.4.4"
   }
 }
